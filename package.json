@@ -7,7 +7,6 @@
     "serve": "npm run dev",
     "dev": "vite",
     "build": "vite build && esno ./build/script/postBuild.ts",
-
     "yl": "vite build --mode production.yl",
     "ap": "vite build --mode production.ap",
     "build:no-cache": "yarn clean:cache && npm run build",
@@ -50,7 +49,8 @@
     "vfonts": "^0.0.3",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
-    "vue-types": "^4.2.1"
+    "vue-types": "^4.2.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",

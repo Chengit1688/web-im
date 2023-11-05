@@ -31,6 +31,7 @@ export interface FormProps {
   showResetButton?: boolean;
   resetButtonOptions?: Partial<ButtonProps>;
   showSubmitButton?: boolean;
+  showExportButton?: boolean;
   showAdvancedButton?: boolean;
   submitButtonOptions?: Partial<ButtonProps>;
   submitButtonText?: string;

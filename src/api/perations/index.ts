@@ -213,6 +213,15 @@ export function createNews(data) {
   });
 }
 
+//更新新闻
+export function updateNews(data) {
+  return http.request({
+    url: '/cms_api/news/update',
+    method: 'POST',
+    data,
+  });
+}
+
 //删除新闻
 export function deleteNews(data) {
   return http.request({

@@ -43,6 +43,8 @@ export const basicProps = {
   showActionButtonGroup: propTypes.bool.def(true),
   // 显示重置按钮
   showResetButton: propTypes.bool.def(true),
+  // 显示导出按钮
+  showExportButton: propTypes.bool.def(false),
   //重置按钮配置
   resetButtonOptions: Object as PropType<Partial<ButtonProps>>,
   // 显示确认按钮
@@ -60,6 +62,10 @@ export const basicProps = {
   resetButtonText: {
     type: String,
     default: '重置',
+  },
+  exportButtonText: {
+    type: String,
+    default: '导出',
   },
   //grid 配置
   gridProps: Object as PropType<GridProps>,

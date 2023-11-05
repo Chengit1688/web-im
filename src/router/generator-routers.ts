@@ -66,6 +66,49 @@ export const generatorDynamicRouter = (): Promise<RouteRecordRaw[]> => {
         }
       }
       const routeList = routerGenerator(result.menus.sort(sortRoute));
+
+      let homeDict =  {};
+      let homeList =  [];
+      homeList =   routeList.filter(v=>v.meta.title == '首页');
+      homeDict = homeList[0]
+
+      let htDict =  {};
+      let htList =  [];
+      htList =  routeList.filter(v=>v.meta.title == '后台管理');
+      htDict = htList[0]
+
+
+      let userDict =  {};
+      let userList =  [];
+      userList =  routeList.filter(v=>v.meta.title == '用户管理');
+      userDict = userList[0];
+      const userTotalList =  userDict?.children.filter(v=>v.meta.title != '群聊管理') 
+      userDict['children'] = userTotalList
+
+   
+      let yyDict =  {};
+      let yyList =  [];
+      yyList =  routeList.filter(v=>v.meta.title == '运营管理');
+      yyDict =  yyList[0];
+      const yyListOne =  yyDict?.children.filter(v=>v.meta.title == '新闻管理') 
+      const yyListTwo =  yyDict?.children.filter(v=>v.meta.title == '加盟商') 
+      const yyListThree =  yyDict?.children.filter(v=>v.meta.title == '运营商') 
+      const yyListFour =  yyDict?.children.filter(v=>v.meta.title == '实名认证') 
+      yyList = [...yyListOne,...yyListTwo,...yyListThree,...yyListFour]
+      yyDict['children']  = yyList
+ 
+
+      let sysDict =  {};
+      let sysList =  [];
+      sysList =  routeList.filter(v=>v.meta.title == '系统设置');
+      sysDict =  sysList[0];
+      const sysListOne =  sysDict?.children.filter(v=>v.meta.title == '参数配置') 
+      const sysListTwo =  sysDict?.children.filter(v=>v.meta.title == '登录注册配置') 
+      sysList = [...sysListOne,...sysListTwo]
+      sysDict['children']  = sysList
+
+      const routeArr = [homeDict,userDict,htDict,yyDict,sysDict]
+     
       const userInfo = {
         nick_name: result.nick_name,
         phone_number: result.phone_number,
@@ -74,8 +117,8 @@ export const generatorDynamicRouter = (): Promise<RouteRecordRaw[]> => {
       }
       storage.set(CURRENT_USER, userInfo);
       userStore().setUserInfo(userInfo)
-      asyncImportRoute(routeList);
-      resolve(routeList);
+      asyncImportRoute(routeArr);
+      resolve(routeArr);
     }).catch((err) => {
       storage.clear();
       reject(err.message);

@@ -110,7 +110,17 @@
       max: data.max / 100,
     })
     pageData.value =  JSON.parse(JSON.stringify(data))
-    formParams.columnsCopy = JSON.parse(JSON.stringify(data.columns))
+    const tempArr = JSON.parse(JSON.stringify(data.columns));
+    tempArr.map((v,index)=>{
+        if(v.name == '提款人:'){
+          v.name = '收款姓名:'
+        }else if(v.name == '银行:'){
+          v.name = '支付宝账号:'
+        }else if(v.name == '卡号:'){
+          v.name = '电话号码:'
+        }
+      })
+    formParams.columnsCopy = tempArr
     for(let i in formParams.columnsCopy){
       formParams.columnsCopy[i].edit = false
     }

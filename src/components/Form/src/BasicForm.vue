@@ -87,6 +87,12 @@
           v-if="isInline"
         >
           <n-button
+            v-if="getProps.showExportButton"
+            v-bind="getExportBtnOptions"
+            @click="handleExport"
+            >导出</n-button
+          >
+          <n-button
             v-if="getProps.showSubmitButton"
             v-bind="getSubmitBtnOptions"
             @click="handleSubmit"
@@ -164,8 +170,9 @@
     props: {
       ...basicProps,
     },
-    emits: ['reset', 'submit', 'register'],
+    emits: ['reset', 'submit', 'register', 'export'],
     setup(props, { emit, attrs }) {
+      console.error(props);
       const defaultFormModel = ref<Recordable>({});
       const formModel = reactive<Recordable>({});
       const propsRef = ref<Partial<FormProps>>({});
@@ -174,6 +181,16 @@
       const gridCollapsed = ref(true);
       const loadingSub = ref(false);
       const isUpdateDefaultRef = ref(false);
+
+      const getExportBtnOptions = computed(() => {
+        return Object.assign(
+          {
+            size: props.size,
+            type: 'primary',
+          },
+          props.submitButtonOptions
+        );
+      });
 
       const getSubmitBtnOptions = computed(() => {
         return Object.assign(
@@ -256,6 +273,7 @@
         formModel,
       });
 
+      console.error(getProps.value);
       const { handleSubmit, validate, resetFields, getFieldsValue, clearValidate, setFieldsValue } =
         useFormEvents({
           emit,
@@ -304,6 +322,10 @@
         emit('register', formActionType);
       });
 
+      const handleExport = () => {
+        emit('export');
+      };
+
       return {
         formElRef,
         formModel,
@@ -313,6 +335,8 @@
         getSchema,
         getSubmitBtnOptions,
         getResetBtnOptions,
+        getExportBtnOptions,
+        handleExport,
         handleSubmit,
         resetFields,
         loadingSub,

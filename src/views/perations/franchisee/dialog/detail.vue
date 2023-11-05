@@ -16,12 +16,20 @@
       <!-- <n-form-item label="营业执照:" path="nick_name">
         <div>{{formParams.nick_name}}</div>
       </n-form-item> -->
-      <!-- <n-form-item label="店面照片:" path="shop_icon">
-        <div>{{formParams.shop_icon}}</div>
-      </n-form-item> -->
-      <!-- <n-form-item label="店铺简介:" path="nick_name">
+      <n-form-item label="店铺简介:" path="nick_name">
         <div>{{formParams.nick_name}}</div>
-      </n-form-item> -->
+      </n-form-item>
+      
+
+      <n-form-item style="margin-bottom: 10px;display: flex;align-items: center;" label="图片详情" path="license">
+        <NImage style="margin-left:0px;height:120px;" :src="formParams.license" alt="" index class="h-full w-full" object-fit="contain"/>   
+      </n-form-item> 
+
+   <n-form-item style="padding-left:10px; flex-direction:row;display:inline-block;" v-for="(item,index) in formParams.shop_icon" :label="`图片详情${index+1}`" path="shop_icon">
+    <NImage  style="margin-left:0px;height:120px;" :src="item" alt="" index class="h-full w-full"/>   
+      </n-form-item> 
+
+
       <n-form-item label="审核状态" path="status">
         <n-radio-group v-model:value="formParams.status" >
             <n-radio :value="1">待审核</n-radio>
@@ -49,6 +57,7 @@
   import { useMessage } from 'naive-ui';
   import { BasicUpload } from '@/components/Upload';
   import { storage } from '@/utils/Storage';
+  import { NImage } from 'naive-ui';
   import { ACCESS_TOKEN} from '@/store/mutation-types';
   import { approveShopping} from '@/api/perations/index';
   const emit = defineEmits(['childToParent']);
